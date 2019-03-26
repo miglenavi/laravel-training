@@ -16,7 +16,7 @@ Route::get('/', function () {
 });
 
 //Route::get('about', function () {
-//    return view(view:'about');
+//    return view('about');
 //});
 
 Route::view('about', 'about');
@@ -39,4 +39,24 @@ $data = compact('name', 'email', 'phone', 'interests');
 
  return view('contact', $data);
 
+});
+
+Route::get('gallery',function() {
+  return view('gallery');
+});
+
+Route::get('chess',function() {
+  return view('gallery');
+});
+
+Route::get('questions', function() {
+
+  $that = 'how';
+  $is = 'are';
+  $just = 'you';
+  $great = 'doing';
+
+  $data = compact('that', 'is', 'just', 'great');
+
+   return view('questions', $data);
 });
