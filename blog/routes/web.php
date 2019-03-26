@@ -56,7 +56,13 @@ Route::get('questions', function() {
   $just = 'you';
   $great = 'doing';
 
-  $data = compact('that', 'is', 'just', 'great');
+  $allgood = [
+    'Justinai',
+    'Viskas',
+    'Ok'
+  ];
+
+  $data = compact('that', 'is', 'just', 'great', 'allgood');
 
    return view('questions', $data);
 });
