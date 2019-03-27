@@ -21,48 +21,12 @@ Route::get('/', function () {
 
 Route::view('about', 'about');
 
-Route::get('contact', function () {
 
-$name = 'Migle Navickaite';
-$email = 'migle@mailerlite.com';
-$phone = '867951201';
+Route::get('contact', 'ContactsController@index')->name('page.contact');
 
-$interests = [
-  'Kava',
-  'Kompas',
-  'Kaitas'
-];
 
-//compact dazniausiai naudojamas!!
+//Route::resource('posts', 'PostController');
 
-$data = compact('name', 'email', 'phone', 'interests');
-
- return view('contact', $data);
-
-});
-
-Route::get('gallery',function() {
-  return view('gallery');
-});
-
-Route::get('chess',function() {
-  return view('gallery');
-});
-
-Route::get('questions', function() {
-
-  $that = 'how';
-  $is = 'are';
-  $just = 'you';
-  $great = 'doing';
-
-  $allgood = [
-    'Justinai',
-    'Viskas',
-    'Ok'
-  ];
-
-  $data = compact('that', 'is', 'just', 'great', 'allgood');
-
-   return view('questions', $data);
-});
+Route::get('posts', 'PostController@index')->name('posts.index');
+Route::get('posts/create', 'PostController@create')->name('posts.create');
+Route::get('posts/{id}', 'PostController@show')->name('posts.show');
