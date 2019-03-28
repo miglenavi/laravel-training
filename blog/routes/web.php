@@ -30,3 +30,7 @@ Route::get('contact', 'ContactsController@index')->name('page.contact');
 Route::get('posts', 'PostController@index')->name('posts.index');
 Route::get('posts/create', 'PostController@create')->name('posts.create');
 Route::get('posts/{id}', 'PostController@show')->name('posts.show');
+
+Route::get('storage', 'FileController@index')->name('posts.index');
+Route::get('storage/create', 'FileController@create')->name('posts.create');
+Route::get('storage/{id}', 'FileController@show')->name('posts.show');

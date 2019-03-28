@@ -1,3 +1,9 @@
+@extends('layouts.app')
+
+@section('title', 'Contacts')
+
+@section('content')
+
 <h2>Kas as</h2>
 <ul>
   <li>{{ $name }}</li>
@@ -16,3 +22,5 @@
   <p>Neturiu pomegiu</p>
   @endforelse
 </ul>
+
+@endsection
