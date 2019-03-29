@@ -3,5 +3,19 @@
 @section('title', 'Create!')
 
 @section('content')
-  Kuriam nauja irasa
+    <form action="{{ route('posts.store') }}" method="POST">
+        @csrf
+
+        @input([
+            'label' => 'Post title',
+            'name' => 'name'
+        ])
+
+        @textarea([
+            'label' => 'Post content',
+            'name' => 'content'
+        ])
+
+        @include('components.form.submit')
+    </form>
 @endsection

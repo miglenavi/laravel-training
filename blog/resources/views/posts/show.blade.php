@@ -3,5 +3,6 @@
 @section('title', 'Vienas irasas')
 
 @section('content')
-       Vienas irasas {{ $id }}
-@endofsection
+Vieno iraso perziura: <br><br>
+       @include('posts.card', ['post'=> $post])
+@endsection

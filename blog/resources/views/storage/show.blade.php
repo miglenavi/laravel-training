@@ -1,11 +1,6 @@
 @extends('layouts.storage')
 
-@section('title', 'Vienas irasas')
-
 @section('content')
-<p>
-Vienas irasas {{ $id }}
-</p>
 
    <div class="row">
 

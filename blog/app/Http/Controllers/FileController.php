@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class FileController extends Controller
 {
@@ -94,7 +95,7 @@ class FileController extends Controller
         ],
       ];
 
-      return view('storage.show', compact('id', 'files'));
+    return view('storage.index', compact('files'));
 
     }
 

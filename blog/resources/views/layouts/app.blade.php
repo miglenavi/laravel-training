@@ -13,6 +13,12 @@
     <body>
 
         <div class="container">
+          <div class="logo">
+            <img src="{{ asset('images/logo.png') }}" alt="logo">
+          </div>
+          <!-- <div class="panda">
+
+          </div> -->
 
               @yield('content')
 

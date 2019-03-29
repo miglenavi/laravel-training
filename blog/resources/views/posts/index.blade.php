@@ -4,29 +4,13 @@
 @section('title', 'Irašai')
 
 @section('content')
+
+     Viso irasu: {{ $posts-> count() }}
+
    <div class="row">
 
-     @forelse ($posts as $post)
-            <div class="col">
-                <div class="card {{ $loop->first ? 'bg-primary' : '' }}">
-                    <div class="card-body">
-                        <h2>{{ $post['title'] }}</h2>
-                        <small>{{ $post['time'] }}</small>
-                        <div>
-                            {{ $post['content'] }}
-                        </div>
+     @each('posts.card', $posts, 'post', 'posts.no-records')
 
-                    </div>
-                </div>
-            </div>
-        @empty
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        Nėra įrašų
-                    </div>
-                </div>
-            </div>
-        @endforelse
-    </div>
+   </div>
+
 @endsection
