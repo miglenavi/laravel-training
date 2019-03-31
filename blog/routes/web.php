@@ -27,11 +27,14 @@ Route::get('contact', 'ContactsController@index')->name('page.contact');
 
 //Route::resource('posts', 'PostController');
 
+Route::resource('files', 'FilesController');
+
 Route::get('posts', 'PostController@index')->name('posts.index');
 Route::get('posts/create', 'PostController@create')->name('posts.create');
 Route::get('posts/{id}', 'PostController@show')->name('posts.show');
 Route::post('posts', 'PostController@store')->name('posts.store');
 
-Route::get('storage', 'FileController@index')->name('storage.index');
-Route::get('storage/create', 'FileController@create')->name('storage.create');
-Route::get('storage/{id}', 'FileController@show')->name('storage.show');
+// Route::get('storage', 'FilesController@index')->name('storage.index');
+// Route::get('storage/create', 'FilesController@create')->name('storage.create');
+// Route::post('storage', 'FilesController@store');
+// Route::get('storage/{id}', 'FilesController@show')->name('storage.show');

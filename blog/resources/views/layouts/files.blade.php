@@ -13,15 +13,6 @@
     <body>
 
         <div class="container">
-          <div class="logo">
-            <img src="{{ asset('images/logo.png') }}" alt="logo">
-          </div>
-          </div>
-          <br>
-          <div class="container">
-          <!-- <div class="panda">
-
-          </div> -->
               @include('partials.navigation')
 
               @yield('content')
