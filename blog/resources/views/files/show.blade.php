@@ -4,5 +4,5 @@
 
 @section('content')
 Vieno iraso perziura: <br><br>
-       @include('files.card', ['file'=> $file])
+       @include('files.card')
 @endsection

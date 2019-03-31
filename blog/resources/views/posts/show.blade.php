@@ -4,5 +4,5 @@
 
 @section('content')
 Vieno iraso perziura: <br><br>
-       @include('posts.card', ['post'=> $post])
+       @include('posts.card')
 @endsection
