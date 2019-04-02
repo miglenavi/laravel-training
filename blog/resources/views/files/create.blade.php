@@ -11,7 +11,7 @@
     <h1>Create a new file</h1>
 
     <form class="" action="/files" method="post">
-      {{ csrf_field() }}
+      @csrf
 
       <div class="field">
         <label class="label" for="title">File Title</label>
