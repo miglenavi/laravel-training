@@ -3,23 +3,20 @@
 @section('title', 'Create!')
 
 @section('content')
-File count: {{ $files-> count() }}
-   <div class="row">
-
-
-     @foreach ($files as $file)
-            <div class="col">
-                <div class="card">
-                    <div class="card-body">
-                        <li>
-                          <a href="/files/{{ $file->id }}">{{ $file->filename }} </a>
-                          </li>
-                        <li> {{ $file->size }} GB</li>
-                        <li> {{ $file->created_at }} </li>
-
-                    </div>
-                </div>
-            </div>
-        @endforeach
+<div class="container">
+  <div class="row">
+    <h2>Files storage</h2>
+  </div>
+  <div class="row">
+    <h6>Number of files: {{ $files->count() }}</h6>
+  </div>
+  <div class="row">
+    @each('files.card', $files, 'file', 'files.no-records')
+  </div>
+    <div class="row">
+      <div class="create-btn">
+      <a href="{{ route('files.create') }}" class="btn btn-primary">CREATE A NEW FILE</a>
+      </div>
     </div>
+  </div>
 @endsection

@@ -1,39 +1,28 @@
 @extends('layouts.files')
 
+@section('title','Create new')
+
 @section('content')
-<!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title></title>
-  </head>
-  <body>
-    <h1>Create a new file</h1>
 
-    <form class="" action="/files" method="post">
-      @csrf
+<div class="container">
+  <h1>Create new file</h1>
+  <div class="row">
+    <div class="col">
+      <form action="{{ route('files.store') }}" method="POST">
 
-      <div class="field">
-        <label class="label" for="title">File Title</label>
+            @csrf
 
-        <div class="control">
-          <input type="text"  class="input" name="filename" required>
-        </div>
-      </div>
+            @include('files.form')
 
-      <div class="field">
-        <label class="label" for="description" required>File size</label>
+            @submit
+      </form>
+    </div>
+  </div>
+  <div class="row">
+    <div class="d-inline p-2">
+    <a href="{{ route('files.index') }}"><button type="submit" class="btn btn-primary">GO BACK</button></a>
+    </div>
+  </div>
+</div>
 
-        <div class="control">
-          <input type="number" class="input" name="size" required>
-        </div>
-      </div>
-
-      <div class="field">
-        <div class="control">
-          <button type="submit">Create File</button>
-        </div>
-      </div>
 @endsection
-  </body>
-</html>

@@ -24,7 +24,14 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-      Blade::include('components.form.text', 'input');
-      Blade::include('components.form.textarea', 'textarea');
+      collect([
+        'input' => 'components.form.text',
+        'textarea' => 'components.form.textarea',
+        'submit' => 'components.form.submit',
+        'delete' => 'components.form.delete',
+        'number' => 'components.form.number'
+      ])->each(function($view, $alias) {
+        Blade::include($view,$alias);
+      });
     }
 }

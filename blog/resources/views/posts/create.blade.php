@@ -1,21 +1,27 @@
-@extends('layouts.app')
+@extends('layouts.appold')
 
-@section('title', 'Create!')
+@section('title','Create new')
 
 @section('content')
-    <form action="{{ route('posts.store') }}" method="POST">
-        @csrf
+<div class="container">
+  <h1>Create new post</h1>
 
-        @input([
-            'label' => 'Post title',
-            'name' => 'name'
-        ])
+          <div class="row">
+              <div class="col">
 
-        @textarea([
-            'label' => 'Post content',
-            'name' => 'content'
-        ])
+                  <form action="{{ route('posts.store') }}" method="POST">
 
-        @include('components.form.submit')
-    </form>
+                      @csrf
+
+                      @include('posts.form')
+
+                      @submit
+
+                  </form>
+
+              </div>
+          </div>
+</div>
+
+
 @endsection
