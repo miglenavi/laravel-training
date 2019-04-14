@@ -29,7 +29,8 @@ class AppServiceProvider extends ServiceProvider
         'textarea' => 'components.form.textarea',
         'submit' => 'components.form.submit',
         'delete' => 'components.form.delete',
-        'number' => 'components.form.number'
+        'number' => 'components.form.number',
+        'duplicate' => 'components.form.duplicate'
       ])->each(function($view, $alias) {
         Blade::include($view,$alias);
       });

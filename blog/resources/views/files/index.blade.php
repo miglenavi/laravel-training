@@ -18,5 +18,8 @@
       <a href="{{ route('files.create') }}" class="btn btn-primary">CREATE A NEW FILE</a>
       </div>
     </div>
+    <div class="row">
+      {{ $files->links() }}
+    </div>
   </div>
 @endsection

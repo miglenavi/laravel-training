@@ -1,7 +1,7 @@
 <div class="form-group">
   <div class="row">
     <label>{{ $label }}</label>
-    <textarea class="form-control" name="{{ $name }}">{{ $value ?? old($name) }}</textarea>
+    <textarea class="form-control" name="{{ $name }}">{{ old($name, $value ?? '') }}</textarea>
 
 
     @if ($errors->has($name))

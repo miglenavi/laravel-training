@@ -14,7 +14,7 @@
         padding: 10px;
       }
       .row{
-        padding-bottom: : 10px;
+        padding-bottom: 10px;
       }
     </style>
 

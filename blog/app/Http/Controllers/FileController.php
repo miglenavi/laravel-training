@@ -6,6 +6,7 @@ use App\File;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\Http\Requests\FileRequest;
 
 class FileController extends Controller
 {
@@ -16,7 +17,7 @@ class FileController extends Controller
      */
     public function index()
     {
-      $files = \App\File::all();
+      $files = File::paginate(12);
       return view('files.index', compact('files'));
     }
     /**
@@ -26,7 +27,7 @@ class FileController extends Controller
      */
     public function create()
     {
-      $file = new \App\File;
+      $file = new File;
       return view('files.create', compact('file'));
     }
 
@@ -36,11 +37,12 @@ class FileController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(\App\Http\Requests\FileRequest $request)
+    public function store( FileRequest $request)
     {
-        $file = new \App\File();
+        $file = new File();
         $file->filename = $request->input('filename');
         $file->size = $request->input('size');
+        $file->post_id = $request->input('post_id');
         $file->save();
 
         $message = 'File is created successfully';
@@ -55,7 +57,7 @@ class FileController extends Controller
      */
     public function show($id)
     {
-      $file = \App\File::findOrFail($id);
+      $file = File::findOrFail($id);
       return view('files.show', compact('file'));
     }
 
@@ -67,7 +69,7 @@ class FileController extends Controller
      */
     public function edit($id)
     {
-        $file = \App\File::find($id);
+        $file = File::find($id);
         return view('files.edit', compact('file'));
     }
 
@@ -78,11 +80,12 @@ class FileController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(\App\Http\Requests\FileRequest $request, $id)
+    public function update(FileRequest $request, $id)
     {
-      $file = new \App\File();
+      $file = new File();
       $file->filename = $request->input('filename');
       $file->size = $request->input('size');
+      $file->post_id = $request->input('post_id');
       $file->save();
 
       $message = 'File is created successfully';
@@ -97,7 +100,7 @@ class FileController extends Controller
      */
     public function destroy($id)
     {
-        \App\File::destroy($id);
+        File::destroy($id);
 
         $message = 'File is created successfully';
         return redirect()->route('files.index')->with('message', $message);

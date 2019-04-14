@@ -6,4 +6,4 @@
 </style>
 
 
-<div class="fixed-bottom"><footer>2019 MailerLite Blog</footer></div>
+<footer>2019 MailerLite Blog</footer>

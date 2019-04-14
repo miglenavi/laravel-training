@@ -32,6 +32,8 @@ Route::resource('files', 'FileController');
 Route::resource('posts', 'PostController');
 Route::resource('comments', 'CommentController');
 
+Route::post('duplicate-post', 'DuplicatePost')->name('posts.duplicate');
+
 
 // Route::get('posts', 'PostController@index')->name('posts.index');
 // Route::get('posts/create', 'PostController@create')->name('posts.create');

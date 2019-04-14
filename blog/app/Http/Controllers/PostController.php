@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Http\Controllers;
+
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+
 class PostController extends Controller
 {
     /**
@@ -38,8 +41,8 @@ class PostController extends Controller
 //
 //        ]);
 //        $posts = DB::table('posts')->get();
-        $posts = \App\Post::all();
-        return view('posts.index',compact('posts'));
+        $posts = \App\Post::paginate(12);
+        return view('posts.index', compact('posts'));
     }
     /**
      * Show the form for creating a new resource.

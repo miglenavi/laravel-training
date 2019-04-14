@@ -17,6 +17,7 @@ class CreateFilesTable extends Migration
             $table->bigIncrements('id');
             $table->string('filename');
             $table->string('size');
+            $table->unsignedBigInteger('post_id');
             $table->timestamps();
         });
     }
