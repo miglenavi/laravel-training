@@ -34,6 +34,17 @@ Route::resource('comments', 'CommentController');
 
 Route::post('duplicate-post', 'DuplicatePost')->name('posts.duplicate');
 
+Route::get('error/{code}', function($code) {
+  abort($code);
+});
+
+Route::get('mail-template', function() {
+   $post = \App\Post::orderBy('created_at', 'DESC')->first();
+
+   return new \App\Mail\PostPublished($post);
+});
+
+
 
 // Route::get('posts', 'PostController@index')->name('posts.index');
 // Route::get('posts/create', 'PostController@create')->name('posts.create');
