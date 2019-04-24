@@ -30,9 +30,18 @@ Route::get('contact', 'ContactController@index')->name('page.contact');
 Route::resource('files', 'FileController');
 
 Route::resource('posts', 'PostController');
+
 Route::resource('comments', 'CommentController');
 
+Route::resource('categories', 'CategoryController');
+
+
 Route::post('duplicate-post', 'DuplicatePost')->name('posts.duplicate');
+Route::post('restore-post', 'RestorePost')->name('posts.restore');
+
+Route::get('recent-posts', 'ShowRecentPosts')->name('posts.recent');
+
+Route::get('deleted-posts', 'ShowDeletedPosts')->name('posts.deleted');
 
 Route::get('error/{code}', function($code) {
   abort($code);

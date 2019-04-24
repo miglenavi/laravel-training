@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class FileRequest extends FormRequest
+class CommentRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,9 +23,10 @@ class FileRequest extends FormRequest
      */
     public function rules()
     {
-      return [
-          'filename' => 'required|min:5',
-          'size' => 'required',
-      ];
+        return [
+            'author' => 'required|min:5',
+            'email' => 'required|email',
+            'content' => 'required|min:10'
+        ];
     }
 }

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Comment;
+use App\Http\Requests\CommentRequest;
+use App\Post;
 use Illuminate\Http\Request;
+
 
 class CommentController extends Controller
 {
@@ -24,7 +27,7 @@ class CommentController extends Controller
      */
     public function create()
     {
-        //
+
     }
 
     /**
@@ -33,9 +36,24 @@ class CommentController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+
+    public function store (CommentRequest $request)
     {
-        //
+
+        $post = Post::findOrFail($request->input('post'));
+
+
+//        $comment = new Comment();
+//        $comment->author = $request->input('author');
+//        $comment->email = $request->input('email');
+//        $comment->content = $request->input('content');
+
+        $comment = Comment::make($request->validated());
+        $post->comments()->save($comment);
+
+        $message = 'Your comment is created!';
+        return redirect()->route('posts.show', $post)->with('message', $message);
+
     }
 
     /**
@@ -78,8 +96,13 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
-        //
+        $comment =Comment::findOrFail($id);
+        $post = $comment->post;
+        Comment::destroy($id);
+
+        $message = 'File deleted successfully';
+        return redirect()->route('posts.show', $post)->with('message', $message);
     }
 }

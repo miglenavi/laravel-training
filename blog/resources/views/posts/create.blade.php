@@ -13,6 +13,13 @@
 
                       @csrf
 
+                      <select name="categories[]" multiple>
+                         <option>-- Choose category --</option>
+                          @foreach ($categories as $category)
+                              <option value="{{ $category->id }}">{{ $category->name  }}</option>
+                          @endforeach
+                      </select>
+
                       @include('posts.form')
 
                       @submit

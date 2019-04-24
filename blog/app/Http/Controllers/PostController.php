@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Http\Requests\PostRequest;
+use App\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -41,7 +44,9 @@ class PostController extends Controller
 //
 //        ]);
 //        $posts = DB::table('posts')->get();
-        $posts = \App\Post::paginate(12);
+        $posts = Post::paginate(10);
+        $posts = Post::withCount('comments')->paginate(10);
+
         return view('posts.index', compact('posts'));
     }
     /**
@@ -51,8 +56,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        $post = new \App\Post;
-        return view('posts.create', compact('post'));
+        $post = new Post();
+        $categories = Category::all();
+
+        return view('posts.create', compact('post', 'categories'));
     }
     /**
      * Store a newly created resource in storage.
@@ -60,7 +67,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(\App\Http\Requests\PostRequest $request)
+    public function store(PostRequest $request)
     {
         //atlikti validacija
 //        $request->validate([
@@ -73,10 +80,12 @@ class PostController extends Controller
 //            'content' => $request->input('content'),
 //            'created_at' => Carbon::now()
 //        ]);
-        $post = new \App\Post;
+        $post = new Post;
         $post->name = $request->input('name');
         $post->content = $request->input('content');
         $post->save();
+
+        $post->categories()->attach($request->categories);
         // darau redirectą po išsaugojimo
         $message = 'Post is created successfully';
         return redirect()->route('posts.index')->with('message', $message);
@@ -132,7 +141,7 @@ class PostController extends Controller
         $post->content = $request->input('content');
         $post->save();
         // darau redirectą po išsaugojimo
-        $message = 'Įrašas sėkmingai atnaujintas!';
+        $message = 'Post created successfully';
         return redirect()->route('posts.show', ['id' => $id])->with('message', $message);
     }
     /**
@@ -145,7 +154,7 @@ class PostController extends Controller
     {
       \App\Post::destroy($id);
       // DB::table('posts')->delete($id);
-        $message = 'Įrašas sėkmingai ištrintas!';
+        $message = 'Post deleted successfully';
         return redirect()->route('posts.index')->with('message', $message);
     }
 }

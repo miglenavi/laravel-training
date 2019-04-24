@@ -18,6 +18,9 @@ class PostsTableSeeder extends Seeder
         //   $post->name = Str::random();
         //   $post->content = 'random content';
         //   $post->save();
-        factory(App\Post::class, 10)->create();
-        }
+        factory(App\Post::class, 10)->create()->each(function ($post) {
+            $post->comments()->saveMany(factory(\App\Comment::class, rand(0, 10)))->make();
+        });
+
     }
+}
