@@ -27,4 +27,5 @@ class PostRequest extends FormRequest
           'content' => 'required|min:10'
         ];
     }
+
 }

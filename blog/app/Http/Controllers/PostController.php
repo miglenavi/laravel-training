@@ -7,16 +7,21 @@ use App\Http\Requests\PostRequest;
 use App\Post;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class PostController extends Controller
 {
+
+     public function __construct() {
+        $this->authorizeResource(Post::class, 'post' );
+    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(\App\Post $post)
     {
 //        $posts = collect([
 //
@@ -45,6 +50,8 @@ class PostController extends Controller
 //        ]);
 //        $posts = DB::table('posts')->get();
         $posts = Post::paginate(10);
+
+        //$this->authorize('view', $post);
         $posts = Post::withCount('comments')->paginate(10);
 
         return view('posts.index', compact('posts'));
@@ -55,7 +62,11 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+
+
     {
+
+
         $post = new Post();
         $categories = Category::all();
 
@@ -80,12 +91,19 @@ class PostController extends Controller
 //            'content' => $request->input('content'),
 //            'created_at' => Carbon::now()
 //        ]);
+
+        //dd(Auth::user());
+
         $post = new Post;
         $post->name = $request->input('name');
         $post->content = $request->input('content');
+
+
+        Auth::user()->posts()->save($post);
         $post->save();
 
         $post->categories()->attach($request->categories);
+
         // darau redirectą po išsaugojimo
         $message = 'Post is created successfully';
         return redirect()->route('posts.index')->with('message', $message);
@@ -96,12 +114,13 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(\App\Post $post)
     {
+        //$this->authorize('view', $post);
 //        Iš DB pagauna
 //        $post = DB::table('posts')->where('id', $id)->first();
 //        Iš modelio pagauna
-        $post = \App\Post::findOrFail($id);
+        //$post = \App\Post::findOrFail($id);
         return view('posts.show', compact('post'));
     }
     /**
@@ -110,10 +129,15 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(\App\Post $post)
     {
 //        $post = DB::table('posts')->where('id', $id)->first();
-        $post = \App\Post::find($id);
+
+
+        //$post = \App\Post::find($id);
+
+       // $this->authorize('update', $post);
+
         return view('posts.edit', compact('post'));
     }
     /**
@@ -123,7 +147,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(\App\Http\Requests\PostRequest $request, $id)
+    public function update(\App\Http\Requests\PostRequest $request, \App\Post $post)
     {
         //atlikti validacija
 //        $request->validate([
@@ -136,13 +160,18 @@ class PostController extends Controller
 //            'content' => $request->input('content'),
 //            'updated_at' => Carbon::now()
 //        ]);
-        $post = \App\Post::find($id);
+       // $post = \App\Post::find($id);
+
+       // $this->authorize('update', $post);
+
         $post->name = $request->input('name');
         $post->content = $request->input('content');
         $post->save();
         // darau redirectą po išsaugojimo
         $message = 'Post created successfully';
-        return redirect()->route('posts.show', ['id' => $id])->with('message', $message);
+        return redirect()->route('posts.show', ['id' => $post->id])->with('message', $message);
+
+        //cia vietoj id post
     }
     /**
      * Remove the specified resource from storage.
@@ -150,11 +179,16 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post)
     {
-      \App\Post::destroy($id);
+        //$post = Post::find($id);
+
+       // $this->authorize('delete', $post);
+
+       $post->delete();
+        //Post::destroy(Post $post);
       // DB::table('posts')->delete($id);
-        $message = 'Post deleted successfully';
+        $message = 'Post was deleted successfully';
         return redirect()->route('posts.index')->with('message', $message);
     }
 }

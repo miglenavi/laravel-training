@@ -2,6 +2,21 @@
     <div class="card h-100">
       <div class="card-body d-flex flex-column">
             <h2 class="card-title"><a href="{{ route('posts.show', $post->id) }}">{{ $post->name }}</a></h2>
+          <div>
+              Categories:
+              @foreach ($post->categories as $category)
+                  {{ $category->name }},
+              @endforeach
+          </div>
+
+          <div class="text-left">
+              Komentarai: {{ $post->comments_count }}
+          </div>
+
+          <div>
+              Author: {{ $post->user ? $post->user->name : 'no name' }}
+          </div>
+          <hr>
             <p class="card-text">
                 {{ $post->content }}
             </p>
@@ -20,16 +35,7 @@
               </form>
             @endif
 
-          <div>
-              Categories:
-              @foreach ($post->categories as $category)
-                  {{ $catergory->name }},
-              @endforeach
-          </div>
 
-            <div class="text-right">
-                Komentarai: {{ $post->comments_count }}
-            </div>
 
         </div>
     </div>

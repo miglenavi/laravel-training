@@ -29,42 +29,41 @@ Route::get('contact', 'ContactController@index')->name('page.contact');
 
 Route::resource('files', 'FileController');
 
-Route::resource('posts', 'PostController');
+//Route::resource('posts', 'PostController');
+
+
 
 Route::resource('comments', 'CommentController');
 
 Route::resource('categories', 'CategoryController');
+//Route::get('categories/{category}', 'CategoryController@show')->name('categories.show');
 
 
+
+Route::middleware('auth')->group(function () {
+    Route::get('posts/create', 'PostController@create')->name('posts.create');
+    Route::post('posts', 'PostController@store')->name('posts.store');
+    Route::get('posts/{post}/edit', 'PostController@edit')->name('posts.edit');
+    Route::put('posts/{post}', 'PostController@update')->name('posts.update');
+    Route::delete('posts/{post}', 'PostController@destroy')->name('posts.destroy');
+
+    Route::get('top-posts', 'ShowTopPosts')->name('posts.top');
+    Route::get('recent-posts', 'ShowRecentPosts')->name('posts.recent');
+    Route::get('deleted-posts', 'ShowDeletedPosts')->name('posts.deleted');
+    Route::post('restore-post', 'RestorePost')->name('posts.restore');
+});
+
+
+
+Route::get('posts', 'PostController@index')->name('posts.index');
+Route::get('posts/{post}', 'PostController@show')->name('posts.show');
+Route::resource('comments', 'CommentController');
 Route::post('duplicate-post', 'DuplicatePost')->name('posts.duplicate');
-Route::post('restore-post', 'RestorePost')->name('posts.restore');
+Route::get('deleted-files', 'ShowDeletedFiles')->name('files.deleted');
+Route::get('deleted-comments', 'ShowDeletedComments')->name('comments.deleted');
+Route::get('filter-files', 'FilterByExtension')->name('files.filtered');
+Route::get('big-files', 'FilterBySize')->name('files.filtered');
 
-Route::get('recent-posts', 'ShowRecentPosts')->name('posts.recent');
-
-Route::get('deleted-posts', 'ShowDeletedPosts')->name('posts.deleted');
-
-Route::get('error/{code}', function($code) {
-  abort($code);
-});
-
-Route::get('mail-template', function() {
-   $post = \App\Post::orderBy('created_at', 'DESC')->first();
-
-   return new \App\Mail\PostPublished($post);
-});
-
-
-
-// Route::get('posts', 'PostController@index')->name('posts.index');
-// Route::get('posts/create', 'PostController@create')->name('posts.create');
-// Route::get('posts/{id}', 'PostController@show')->name('posts.show');
-// Route::post('posts', 'PostController@store')->name('posts.store');
-
-// Route::get('storage', 'FilesController@index')->name('storage.index');
-// Route::get('storage/create', 'FilesController@create')->name('storage.create');
-// Route::post('storage', 'FilesController@store');
-// Route::get('storage/{id}', 'FilesController@show')->name('storage.show');
-
+Route::resource('files', 'FileController');
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');

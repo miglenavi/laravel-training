@@ -17,7 +17,8 @@ class CommentController extends Controller
      */
     public function index()
     {
-        //
+        $comments = Comment::all();
+        return view('comments.index', compact('comments'));
     }
 
     /**
@@ -98,11 +99,11 @@ class CommentController extends Controller
      */
     public function destroy($id)
     {
-        $comment =Comment::findOrFail($id);
+        $comment = Comment::findOrFail($id);
         $post = $comment->post;
         Comment::destroy($id);
 
-        $message = 'File deleted successfully';
+        $message = 'Comment deleted successfully';
         return redirect()->route('posts.show', $post)->with('message', $message);
     }
 }

@@ -1,6 +1,6 @@
 @extends('layouts.files')
 
-@section('title', 'Create!')
+@section('title', 'Files')
 
 @section('content')
 <div class="container">

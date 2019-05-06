@@ -7,6 +7,19 @@
 
             <div class="card-footer bg-transparent"><small class="text-muted">{{ $file->created_at }}</small>
             </div>
+
+          @if ($file->trashed())
+              <div class="card-footer bg-transparent">
+                  <small class="text-danger">Deleted: {{ $file->deleted_at }}</small>
+              </div>
+              <form action="{{ route('files.restore') }}" method="post">
+                  @csrf
+
+                  <input type="hidden" name="id" value="{{ $file->id }}">
+
+                  <button class="btn btn-primary" type="submit" value="">Recreate</button>
+              </form>
+          @endif
         </div>
     </div>
 </div>

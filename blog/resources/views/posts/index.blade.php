@@ -10,11 +10,16 @@
   <div class="row">
     <h6>Number of posts: {{ $posts->count() }}</h6>
   </div>
+
+    @auth
+
   <div class="row">
     <div class="create-btn">
     <a href="{{ route('posts.create') }}" class="btn btn-primary">CREATE A NEW POST</a>
     </div>
   </div>
+    @endauth
+
   <div class="row">
     @each('posts.card', $posts, 'post', 'posts.no-records')
   </div>

@@ -4,21 +4,33 @@
 
 @section('content')
 <div class="container">
+
+
   <div class="row">
+      @auth
     <div class="d-inline p-2">
+        @can('update', $post)
       <a class="btn btn-primary" href="{{ route('posts.edit', ['id' => $post->id]) }}">EDIT</a>
+        @endcan
     </div>
     <div class="d-inline p-2">
+        @can('delete', $post)
       @delete(['action' => route('posts.destroy', ['id' => $post->id])])
+      @endcan
     </div>
-    <div class="d-inline p-2">
+
+      <div class="d-inline p-2">
+          @can('update', $post)
       <form action="{{ route('posts.duplicate') }}" method="POST">
           @csrf
           <input type="hidden" name="id" value="{{ $post->id }}">
           <button type="submit" class="btn btn-success">COPY</button>
+          @endcan
     </form>
     </div>
+      @endauth
   </div>
+
 
   <div class="row">
     @include('posts.card', compact('post'))
@@ -56,6 +68,7 @@
     <div class="row">
         <div class="col-12">
             <div class="border-top mb-4"></div>
+            <h3> Leave a comment here </h3>
             @include('posts.comments.create', compact('post'))
         </div>
     </div>
